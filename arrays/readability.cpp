@@ -7,39 +7,36 @@ int main(void)
   std::string text = "";
   std::cout << "text: ";
   std::getline(std::cin, text);
-  std::string text_ = "";
-  int N = 1;
-  for(int t : text)
+  int sentences = 0, letters = 0, words = 0;
+  bool in_word = false;
+  for(char t : text)
   {
-    N += (t == ' ') ? 1 : 0;
-    text_ += t;
-  }
-  int I = trunc(N/100);
-  int sentences[I];
-  int letters[I];
-  
-  for(int i = 0; i < N; i++)
-  {
-    char character = text_[i];
-    int index = trunc(i/100);
-    if(character == '.' || character == '?' || character == '!')
+    char i = tolower(t);
+    if(in_word && (i == ' ' || i == '\n' || i == '\t'))
     {
-      sentences[index] += 1;
+      words++;
+      in_word = false;
     }
-    if(character != ' ' && character >= 'a' && character <= 'z')
+    else if(i == '.' || i == '?' || i == '!')
     {
-      letters[index] += 1;
+        sentences++;
+    }
+    else if(i != ' ' && i >= 'a' && i <= 'z')
+    {
+      letters++;
+      in_word = true;
     }
   }
-  int L = 0, S = 0, total_sentences_per = 0, total_letters_per = 0;
-  for(int i = 0; i < I; i++)
+  if(in_word) words++;
+  if(words == 0)
   {
-    total_sentences_per += sentences[i];
-    total_letters_per += letters[i];
+    std::cout << "no text entered!\n";
+    return 0;
   }
-  L = total_letters_per/I;
-  S = total_sentences_per/I;
-  int index = trunc(0.0588 * L - 0.296 * S - 15.8);
-  std::string grade = (index < 1) ? "<1" : ((index > 16) ? "16+" : std::to_string(index));
-  std::cout << "grade: " << grade << "\n";
+  std::cout << letters << "\n" << sentences << "\n";
+  double L = 100 * letters / words;
+  double S = 100 * sentences / words;
+  double index = 0.0588 * L - 0.296 * S - 15.8;
+  std::string grade = (index < 1) ? "<1" : ((index > 16) ? "16+" : std::to_string(int(round(index))));
+  std::cout << index << "\ngrade: " << grade << "\n";
 }
