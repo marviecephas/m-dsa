@@ -55,8 +55,7 @@ std::string ciphertext(std::string plaintext, std::string key)
   std::string ciphertext = "ciphertext: ";
   for(char c : plaintext)
   {
-    char C = toupper(c);
-    ciphertext += (C >= 'A' && C <= 'Z') ? key[C - 'A'] : c;
+    ciphertext += (c >= 'A' && c <= 'Z') ? toupper(key[c - 'A']) : ((c >= 'a' && c <= 'z') ? tolower(key[c - 'a']) : c);
   }
   return ciphertext;
 }

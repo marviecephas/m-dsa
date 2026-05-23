@@ -13,10 +13,10 @@ def verify_key(key):
   return True
 def get_ciphertext(plaintext, key):
   if (plaintext == ''): return 'plaintext is empty!'
-  ciphertext = ''
+  ciphertext = 'ciphertext: '
   for char in plaintext:
-    CHAR = ord(char.upper())
-    ciphertext += key[CHAR - ord('A')] if((CHAR >= ord('A')) and (CHAR <= ord('Z'))) else char
+    CHAR = ord(char)
+    ciphertext += key[CHAR - ord('A')].upper() if((CHAR >= ord('A')) and (CHAR <= ord('Z'))) else (key[ CHAR - ord('a')].lower() if((CHAR >= ord('a')) and (CHAR <= ord('z'))) else char)
   return ciphertext
 
 
