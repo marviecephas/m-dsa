@@ -5,7 +5,7 @@ def verify_key(key):
   return True
 def get_ciphertext(plaintext, key):
   if (plaintext == ''): return 'plaintext is empty!'
-  ciphertext = ''
+  ciphertext = 'ciphertext: '
   i, j, KEY= [1, 0.1, 0]
   for k in key:
     KEY += (ord(k) - ord('0')) * i
@@ -14,7 +14,7 @@ def get_ciphertext(plaintext, key):
   KEY *= j
   for char in plaintext:
     CHAR = ord(char.upper())
-    ciphertext += str(int(ord(char) + KEY%26)) if((CHAR >= ord('A')) and (CHAR <= ord('Z'))) else c
+    ciphertext += chr(int(ord('A') +(CHAR - ord('A') + KEY)%26)) if((ord(char) >= ord('A')) and (ord(char) <= ord('Z'))) else  (chr(int(ord('a') +(ord(char) - ord('a') + KEY)%26)) if((ord(char) >= ord('a')) and (ord(char) <= ord('z'))) else char)
   return ciphertext
 
 
