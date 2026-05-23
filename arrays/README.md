@@ -1,4 +1,4 @@
-Arrays & String Manipulation
+# Arrays & String Manipulation
 
 This repository contains my documentation and project implementations (C++ and Python) focusing on array mechanics, memory layout, and string manipulation algorithms.
 
